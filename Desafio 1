@@ -77,13 +77,13 @@ bool verificarBalanceamento(char* expressao) {
 int main() {
     char expressao[256];
     
-    printf("Digite a expressao matematica: ");
+    printf("Digite a expressão matematica: ");
     scanf("%255s", expressao);
 
     if (verificarBalanceamento(expressao)) {
-        printf("Resultado: Expressao VALIDA.\n");
+        printf("Resultado: Expressão VALIDA.\n");
     } else {
-        printf("Resultado: Expressao INVALIDA.\n");
+        printf("Resultado: Expressão INVALIDA.\n");
     }
 
     return 0;
