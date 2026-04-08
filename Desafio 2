@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+typedef struct No {
+    char dado;
+    struct No* prox;
+} No;
+
+typedef struct {
+    No* topo;
+} Pilha;
+
+void inicializar(Pilha* p) {
+    p->topo = NULL;
+}
+
+bool isEmpty(Pilha* p) {
+    return p->topo == NULL;
+}
+
+void push(Pilha* p, char valor) {
+    No* novo = (No*)malloc(sizeof(No));
+    if (novo == NULL) {
+        printf("Erro: Falha na alocação de memória.\n");
+        exit(1);
+    }
+    novo->dado = valor;
+    novo->prox = p->topo;
+    p->topo = novo;
+}
+
+char pop(Pilha* p) {
+    if (isEmpty(p)) {
+        return '\0';
+    }
+    No* temp = p->topo;
+    char valor = temp->dado;
+    p->topo = temp->prox;
+    free(temp);
+    return valor;
+}
+
+void inverterString(char* str) {
+    Pilha p;
+    inicializar(&p);
+    int len = strlen(str);
+
+    for (int i = 0; i < len; i++) {
+        push(&p, str[i]);
+    }
+
+    for (int i = 0; i < len; i++) {
+        str[i] = pop(&p);
+    }
+}
+
+int main() {
+    char texto[256];
+
+    printf("Digite uma string para inverter (sem espacos): ");
+    scanf("%255s", texto);
+
+    inverterString(texto);
+
+    printf("String invertida: %s\n", texto);
+
+    return 0;
+}
