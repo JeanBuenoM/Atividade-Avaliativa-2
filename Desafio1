@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+typedef struct No {
+    char dado;
+    struct No* prox;
+} No;
+
+typedef struct {
+    No* topo;
+} Pilha;
+
+void inicializar(Pilha* p) {
+    p->topo = NULL;
+}
+
+bool isEmpty(Pilha* p) {
+    return p->topo == NULL;
+}
+
+void push(Pilha* p, char valor) {
+    No* novo = (No*)malloc(sizeof(No));
+    if (novo == NULL) {
+        printf("Erro: Falha na alocação de memória.\n");
+        exit(1);
+    }
+    novo->dado = valor;
+    novo->prox = p->topo;
+    p->topo = novo;
+}
+
+char pop(Pilha* p) {
+    if (isEmpty(p)) {
+        return '\0'; 
+    }
+    No* temp = p->topo;
+    char valor = temp->dado;
+    p->topo = temp->prox;
+    free(temp);
+    return valor;
+}
+
+bool verificarBalanceamento(char* expressao) {
+    Pilha p;
+    inicializar(&p);
+
+    for (int i = 0; expressao[i] != '\0'; i++) {
+        char c = expressao[i];
+
+        if (c == '(' || c == '{' || c == '[') {
+            push(&p, c);
+        } 
+        else if (c == ')' || c == '}' || c == ']') {
+            if (isEmpty(&p)) {
+                return false;
+            }
+            char topo = pop(&p);
+            
+            if ((c == ')' && topo != '(') ||
+                (c == '}' && topo != '{') ||
+                (c == ']' && topo != '[')) {
+                return false;
+            }
+        }
+    }
+    
+    bool balanceada = isEmpty(&p);
+    
+    while (!isEmpty(&p)) {
+        pop(&p);
+    }
+    
+    return balanceada;
+}
+
+int main() {
+    char expressao[256];
+    
+    printf("Digite a expressao matematica: ");
+    scanf("%255s", expressao);
+
+    if (verificarBalanceamento(expressao)) {
+        printf("Resultado: Expressao VALIDA.\n");
+    } else {
+        printf("Resultado: Expressao INVALIDA.\n");
+    }
+
+    return 0;
+}
