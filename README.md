@@ -1,1 +1,5 @@
-# Trabalho-Estruturas-de-dados-ADSIS3S.
+Desafio 1 (Balanceamento)
+A implementação utiliza a pilha para validar a hierarquia dos símbolos. Ao percorrer a string, cada caractere de abertura é armazenado na estrutura via push. Quando um caractere de fechamento é encontrado, o pop recupera o elemento do topo para uma comparação lógica. Se os símbolos não formarem um par correspondente ou se a pilha estiver vazia antes do fim da string, a expressão é descartada como inválida. A validação final ocorre ao checar se o topo é NULL após o processamento completo.
+
+Desafio 2 (Inversão)
+A inversão aproveita a característica LIFO (Last-In, First-Out) da estrutura. O algoritmo realiza o push de cada caractere da string original para a pilha dinâmica. Ao concluir a inserção, o topo da pilha passa a conter o último caractere da string. Em seguida, o processo de pop retira os elementos e os reinsere na string original a partir do índice zero. Como a ordem de saída é inversa à de entrada, a string é sobrescrita de trás para frente sem a necessidade de estruturas auxiliares de armazenamento.
