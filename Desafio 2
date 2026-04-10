@@ -57,10 +57,10 @@ void inverterString(char* str) {
 }
 
 int main() {
-    char texto[256];
+    char texto[250];
 
     printf("Digite uma string para inverter (sem espacos): ");
-    scanf("%255s", texto);
+    scanf("%250s", texto);
 
     inverterString(texto);
 
